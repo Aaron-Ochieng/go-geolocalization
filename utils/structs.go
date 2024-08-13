@@ -28,3 +28,12 @@ type Location struct {
 type LocationIndex struct {
 	Index []Location `json:"index"`
 }
+
+type Date struct {
+	Id    int      `json:"id"`
+	Dates []string `json:"dates"`
+}
+
+type DateIndex struct {
+	Index []Date `json:"index"`
+}
