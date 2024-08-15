@@ -1,58 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupie tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .card p {
-            padding: 10px;
-            margin: 0;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Artists</h1>
-    <div class="card-grid">
-        {{ range . }}
-        <div class="card">
-            <img src="{{.Image}}" alt="{{.Name}}">
-            <p>{{.Name}}</p>
+
+<body class="bg-slate-800">
+    <div class="container relative mx-auto p-6 mb-0 md:mb-32">
+        <div class="flex items-center justify-center h-[300px] w-full border border-slate-400 rounded-lg mb-[20px]">
+            <p class="text-4xl text-white">Groupie Tracker</p>
         </div>
-        {{ end }}
+
+        <!-- Items to be spaced evenly -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {{ range .}}
+            <div class="h-[300px] w-full lg:h-[280px] rounded-lg border border-slate-300 bg-slate-300">
+                <img src={{.Image}} class="h-full w-[250px]  object-fit" alt="" srcset="">
+            </div>
+            {{ end }}
+        </div>
+
     </div>
 </body>
+
 </html>
