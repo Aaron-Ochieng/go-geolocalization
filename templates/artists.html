@@ -1,58 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupie tracker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .card p {
-            padding: 10px;
-            margin: 0;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Artists</h1>
-    <div class="card-grid">
-        {{ range . }}
-        <div class="card">
-            <img src="{{.Image}}" alt="{{.Name}}">
-            <p>{{.Name}}</p>
+
+<body class="bg-slate-200 p-6">
+    <div class="mx-auto">
+        <div class="flex items-center justify-center h-[300px] w-full rounded-lg mb-[20px]">
+            <p class="text-4xl text-white">Groupie Tracker</p>
         </div>
-        {{ end }}
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {{ range . }}
+            <div class="bg-gray-700 border border-slate-800 rounded-lg overflow-hidden shadow-lg">
+                <div class="flex">
+                    <img class="w-1/3 h-full object-cover" src="{{.Image}}" alt="">
+                    <div class="w-2/3 p-4 ml-5">
+                        <h2 class="text-xl font-bold text-white">{{.Name}}</h2>
+                        
+                        <p class="text-sm text-gray-400 mt-2">
+                            <span class="font-bold">Members</span>
+                            {{range .Members}}
+                            <span class="block mt-1 text-white">
+                                {{.}}
+                            </span>
+                            </span>
+                            {{end}}
+                        </p>
+                        <p class="text-sm text-gray-400 mt-2 flex flex-row space-x-2 items-center content-center">
+                            <span class="font-bold">First album:</span>
+                            <span class="block mt-1 text-white">{{.FirstAlbum}}</span>
+                        </p>
+                        <p class="text-sm text-gray-400 mt-4 hover:text-blue-400">
+                            <a href="{{.Locations}}">
+                                <span class="font-bold">Location</span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
     </div>
 </body>
+
 </html>
