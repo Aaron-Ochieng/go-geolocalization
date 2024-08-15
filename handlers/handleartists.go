@@ -1,25 +1,20 @@
 package handlers
 
 import (
-	"encoding/json"
+	"fmt"
 	"net/http"
+	"text/template"
 
 	"groupie-tracker/utils"
 )
 
-func ArtistsHandler(w http.ResponseWriter, r *http.Request) {
-	// Replace with your actual URL or get it from a config/environment variable
-	url := "http://example.com/api/artists"
-
-	artists := utils.GetArtists(url)
-	if artists == nil {
-		http.Error(w, "Unable to retrieve artists", http.StatusInternalServerError)
+func ArtistHandler(w http.ResponseWriter, r *http.Request) {
+	artists, err := utils.GetArtists()
+	tmpl, err := template.ParseFiles("templates/artists.html")
+	if err != nil {
+		fmt.Printf("error: %v", err)
+		http.Error(w, "Internal Server error", http.StatusInternalServerError)
 		return
 	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(artists); err != nil {
-		http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
-	}
+	tmpl.Execute(w, artists)
 }
