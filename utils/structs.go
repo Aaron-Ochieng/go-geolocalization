@@ -37,3 +37,7 @@ type Date struct {
 type DateIndex struct {
 	Index []Date `json:"index"`
 }
+type Relations struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+}
