@@ -10,6 +10,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", handlers.ArtistHandler)
+	http.HandleFunc("/details/", handlers.DetailsHandler)
 	// The server runs asynchronously on port 8080 using a goroutine.
 	go func() {
 		if err := http.ListenAndServe(":8000", nil); err != nil {
