@@ -24,7 +24,7 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	// Fetch relations
 	relations, err := utils.GetRelations(utils.GetApiIndex().Relation + "/" + strconv.Itoa(id))
 	if err != nil {
-		http.Error(w, "Error fetching relations", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return
 	}
 
