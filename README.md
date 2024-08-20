@@ -56,6 +56,8 @@ To run the project, follow these steps:
    ```
 
 4. Open your browser and go to `http://localhost:8000` to view the website and interact with it.
+   
+   **To view locations and concert dates of the individual artists, click on the artists card(any artist) to view more about the artist.**
 
 ## Contributing
 
