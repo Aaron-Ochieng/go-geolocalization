@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"fmt"
-	"groupie-tracker/utils"
 	"net/http"
 	"strconv"
 	"strings"
 	"text/template"
+
+	"groupie-tracker/utils"
 )
 
 func DetailsHandler(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +15,8 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimPrefix(r.URL.Path, "/details/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil || id < 1 || id > 52 {
-		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		// http.Error(w, "Invalid ID", http.StatusBadRequest)
+		ErrorHandler(w, r, http.StatusBadRequest)
 		return
 	}
 	fmt.Println(idStr)
@@ -22,18 +24,18 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	// Fetch relations
 	relations, err := utils.GetRelations(utils.GetApiIndex().Relation + "/" + strconv.Itoa(id))
 	if err != nil {
-		http.Error(w, "Error fetching relations", http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 
 	// Fetch artists
 	artists, err := utils.GetArtists()
 	if err != nil {
-		http.Error(w, "Error fetching artists", http.StatusInternalServerError)
-		return // Missing return added here
+		ErrorHandler(w, r, http.StatusInternalServerError)
+		return
 	}
 	if id > len(artists) {
-		http.Error(w, "Artist not found", http.StatusNotFound)
+		ErrorHandler(w, r, http.StatusNotFound)
 		return
 	}
 
@@ -58,15 +60,14 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 		"trimPrefix": strings.TrimPrefix,
 	}).ParseFiles("templates/details.html")
 	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return
 	}
 
 	// Execute template
 	err = tmpl.Execute(w, data)
 	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return
 	}
 }
