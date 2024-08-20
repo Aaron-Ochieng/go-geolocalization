@@ -1,59 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Band and Tour Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queen Band Tour</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="band-info">
-    {{ if .Artist }}
-    <div class="artist-info">
-        <img src="{{ .Artist.Image }}" alt="Image of {{ .Artist.Name }}">
-        <h1>{{ .Artist.Name }}</h1>
-    </div>
-    {{ end }}
 
-    {{ if .Artist.Members }}
-    <div class="members-info">
-        <h2>Band Members</h2>
-        <ul class="members-list">
+<body class="flex items-center justify-center min-h-screen bg-slate-800 p-6">
+
+    <div class="text-center bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-4 my-[30px] w-[400px]">
+        {{if .Artist}}
+        <div class="flex justify-center mb-6">
+            <img src="{{.Artist.Image}}" alt="Queen Logo" class="h-[200px] w-[200px]">
+        </div>
+        <h1 class="text-4xl font-bold mb-6">{{ .Artist.Name }}</h1>
+
+        {{ end }}
+
+
+        <div class="flex flex-col mb-4">
+            <div class="text-2xl font-semibold mb-4">First Album</div>
+            <p class="text-sm mx-4">{{.Artist.FirstAlbum}}</p>
+        </div>
+
+
+        {{if .Artist.Members}}
+        <div class="flex flex-col my-4">
+            <h2 class="text-2xl font-semibold mb-4">Band Members</h2>
             {{ range .Artist.Members }}
-            <li>{{ . }}</li>
+            <div class="text-sm mx-4">{{.}}</div>
             {{ end }}
-        </ul>
+
+        </div>
+        {{end}}
+
+
+        {{ if .Relations.DatesLocations }}
+
+        <h2 class="text-xl font-semibold mb-4">Tour Dates and Locations</h2>
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Locations
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Dates
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $location, $dates := .Relations.DatesLocations }}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{$location}}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ range $dates }}
+                            <div>{{.}}</div>
+                            {{ end }}
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+        {{ else }}
+        <p>No tour information available.</p>
+        {{ end }}
     </div>
-    {{ end }}
-</div>
-
-{{ if .Relations.DatesLocations }}
-<div class="table-container">
-    <h2>Tour Dates and Locations</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Location</th>
-                <th>Dates</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{ range $location, $dates := .Relations.DatesLocations }}
-            <tr>
-                <td>{{ $location }}</td>
-                <td>
-                    {{ range $dates }}
-                    <div>{{ . }}</div>
-                    {{ end }}
-                </td>
-            </tr>
-            {{ end }}
-        </tbody>
-    </table>
-</div>
-
-{{ else }}
-<p>No tour information available.</p>
-{{ end }}
 
 </body>
+
 </html>
