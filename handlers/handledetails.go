@@ -67,8 +67,7 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	// Execute template
 	err = tmpl.Execute(w, data)
 	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return
 	}
 }
