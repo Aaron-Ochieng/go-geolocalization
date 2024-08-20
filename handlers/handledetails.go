@@ -31,7 +31,7 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	// Fetch artists
 	artists, err := utils.GetArtists()
 	if err != nil {
-		http.Error(w, "Error fetching artists", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return // Missing return added here
 	}
 	if id > len(artists) {
