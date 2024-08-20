@@ -24,18 +24,18 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	// Fetch relations
 	relations, err := utils.GetRelations(utils.GetApiIndex().Relation + "/" + strconv.Itoa(id))
 	if err != nil {
-		ErrorHandler(w,r,http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 
 	// Fetch artists
 	artists, err := utils.GetArtists()
 	if err != nil {
-		ErrorHandler(w,r,http.StatusInternalServerError)
-		return // Missing return added here
+		ErrorHandler(w, r, http.StatusInternalServerError)
+		return
 	}
 	if id > len(artists) {
-		http.Error(w, "Artist not found", http.StatusNotFound)
+		ErrorHandler(w, r, http.StatusNotFound)
 		return
 	}
 
