@@ -60,7 +60,7 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 		"trimPrefix": strings.TrimPrefix,
 	}).ParseFiles("templates/details.html")
 	if err != nil {
-		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return
 	}
 
