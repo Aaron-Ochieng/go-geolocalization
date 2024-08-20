@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"fmt"
-	"groupie-tracker/utils"
 	"net/http"
 	"strconv"
 	"strings"
 	"text/template"
+
+	"groupie-tracker/utils"
 )
 
 func DetailsHandler(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +15,8 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	idStr := strings.TrimPrefix(r.URL.Path, "/details/")
 	id, err := strconv.Atoi(idStr)
 	if err != nil || id < 1 || id > 52 {
-		http.Error(w, "Invalid ID", http.StatusBadRequest)
+		// http.Error(w, "Invalid ID", http.StatusBadRequest)
+		ErrorHandler(w, r, http.StatusBadRequest)
 		return
 	}
 	fmt.Println(idStr)
