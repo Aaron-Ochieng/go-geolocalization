@@ -4,69 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queen Band Tour</title>
+    <title>Queen Band Tour - A Royal Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="justify-center  lg:min-h-screen bg-slate-800 p-6 flex">
+<body class="justify-center lg:min-h-screen p-6 flex flex-col items-center text-white">
 
     <!-- Go Back Button -->
-    <div>
-        <div class="ml-4 top-4 left-4 mb-5 pb-5 my-6">
+    <div class="w-full max-w-4xl">
+        <div class="mb-5 pb-5 my-6">
             <button onclick="history.back()"
-                class="text-white bg-blue-600 hover:bg-blue-700 font-bold py-2 px-4 rounded">
-                Go Back
+                class="text-white bg-red-600 hover:bg-red-700 font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                ← Go Back
             </button>
         </div>
-        <div class="flex items-center ">
-            <div class="text-center bg-white p-6 pt-6 rounded-lg shadow-lg w-3/4 mx-4 my-[30px] w-[400px]">
+    </div>
 
+    <div class="flex items-center justify-center w-full">
+        <div class="text-center bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl shadow-2xl w-full max-w-4xl mx-4 my-[30px] relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-opacity-10 bg-white z-0"></div>
+            <div class="relative z-10">
                 {{if .Artist}}
                 <div class="flex justify-center mb-6">
-                    <img src="{{.Artist.Image}}" alt="Queen Logo" class="h-[200px] w-[200px]">
+                    <img src="{{.Artist.Image}}" alt="Artist Image" class="h-[250px] w-[250px] queen-logo animate-pulse">
                 </div>
-                <h1 class="text-4xl font-bold mb-6">{{ .Artist.Name }}</h1>
-
+                <h1 class="text-5xl font-bold mb-6 text-yellow-400">{{ .Artist.Name }}</h1>
                 {{ end }}
 
-                <div class="flex flex-col mb-4">
-                    <div class="text-2xl font-semibold mb-4">First Album</div>
-                    <p class="text-sm mx-4">{{.Artist.FirstAlbum}}</p>
+                <div class="flex flex-col mb-8">
+                    <div class="text-2xl font-semibold mb-4 text-red-400">First Album</div>
+                    <p class="text-lg mx-4">{{.Artist.FirstAlbum}}</p>
                 </div>
 
                 {{if .Artist.Members}}
-                <div class="flex flex-col my-4">
-                    <h2 class="text-2xl font-semibold mb-4">Band Members</h2>
-                    {{ range .Artist.Members }}
-                    <div class="text-sm mx-4">{{.}}</div>
-                    {{ end }}
+                <div class="flex flex-col my-8">
+                    <h2 class="text-3xl font-semibold mb-4 text-blue-400">Band Members</h2>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        {{ range .Artist.Members }}
+                        <div class="text-lg bg-opacity-20 bg-white px-4 py-2 rounded-full">{{.}}</div>
+                        {{ end }}
+                    </div>
                 </div>
                 {{end}}
 
                 {{ if .Relations.DatesLocations }}
-                <h2 class="text-xl font-semibold mb-4">Tour Dates and Locations</h2>
-                <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <h2 class="text-3xl font-semibold mb-6 text-green-400">Tour Dates and Locations</h2>
+                <div class="relative overflow-x-auto tour-dates">
+                    <table class="w-full text-sm text-left text-gray-200">
+                        <thead class="text-xs uppercase bg-opacity-20 bg-white">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Locations
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Dates
-                                </th>
+                                <th scope="col" class="px-6 py-3">Locations</th>
+                                <th scope="col" class="px-6 py-3">Dates</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{ range $location, $dates := .Relations.DatesLocations }}
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <tr class="border-b border-opacity-20 border-white hover:bg-opacity-10 hover:bg-white transition duration-300">
+                                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{$location}}
                                 </th>
                                 <td class="px-6 py-4">
                                     {{ range $dates }}
-                                    <div>{{.}}</div>
+                                    <div class="mb-1">{{.}}</div>
                                     {{ end }}
                                 </td>
                             </tr>
@@ -75,13 +74,11 @@
                     </table>
                 </div>
                 {{ else }}
-                <p>No tour information available.</p>
+                <p class="text-xl italic">No tour information available at the moment.</p>
                 {{ end }}
             </div>
         </div>
-
     </div>
-
 
 </body>
 
