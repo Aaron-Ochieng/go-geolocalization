@@ -8,50 +8,48 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="justify-center lg:min-h-screen p-6 flex flex-col items-center text-white">
+<body class="bg-gray-900 p-6 flex flex-col items-center justify-center lg:min-h-screen text-gray-100">
 
     <!-- Go Back Button -->
-    <div class="w-full max-w-4xl">
-        <div class="mb-5 pb-5 my-6">
-            <button onclick="history.back()"
-                class="text-white bg-red-600 hover:bg-red-700 font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-                ← Go Back
-            </button>
-        </div>
+    <div class="w-full max-w-4xl mb-6">
+        <button onclick="history.back()"
+            class="text-white bg-gray-700 hover:bg-gray-600 font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out">
+            ← Go Back
+        </button>
     </div>
 
     <div class="flex items-center justify-center w-full">
-        <div class="text-center bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl shadow-2xl w-full max-w-4xl mx-4 my-[30px] relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-opacity-10 bg-white z-0"></div>
+        <div class="text-center bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-4xl mx-4 my-[30px] relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-opacity-10 bg-black z-0"></div>
             <div class="relative z-10">
                 {{if .Artist}}
                 <div class="flex justify-center mb-6">
-                    <img src="{{.Artist.Image}}" alt="Artist Image" class="h-[250px] w-[250px] queen-logo animate-pulse">
+                    <img src="{{.Artist.Image}}" alt="Artist Image" class="h-[250px] w-[250px] object-cover rounded-full shadow-lg">
                 </div>
-                <h1 class="text-5xl font-bold mb-6 text-yellow-400">{{ .Artist.Name }}</h1>
+                <h1 class="text-5xl font-bold mb-6">{{ .Artist.Name }}</h1>
                 {{ end }}
 
                 <div class="flex flex-col mb-8">
-                    <div class="text-2xl font-semibold mb-4 text-red-400">First Album</div>
+                    <div class="text-2xl font-semibold mb-4">First Album</div>
                     <p class="text-lg mx-4">{{.Artist.FirstAlbum}}</p>
                 </div>
 
                 {{if .Artist.Members}}
                 <div class="flex flex-col my-8">
-                    <h2 class="text-3xl font-semibold mb-4 text-blue-400">Band Members</h2>
+                    <h2 class="text-3xl font-semibold mb-4">Band Members</h2>
                     <div class="flex flex-wrap justify-center gap-4">
                         {{ range .Artist.Members }}
-                        <div class="text-lg bg-opacity-20 bg-white px-4 py-2 rounded-full">{{.}}</div>
+                        <div class="text-lg bg-gray-700 px-4 py-2 rounded-full">{{.}}</div>
                         {{ end }}
                     </div>
                 </div>
                 {{end}}
 
                 {{ if .Relations.DatesLocations }}
-                <h2 class="text-3xl font-semibold mb-6 text-green-400">Tour Dates and Locations</h2>
+                <h2 class="text-3xl font-semibold mb-6">Tour Dates and Locations</h2>
                 <div class="relative overflow-x-auto tour-dates">
-                    <table class="w-full text-sm text-left text-gray-200">
-                        <thead class="text-xs uppercase bg-opacity-20 bg-white">
+                    <table class="w-full text-sm text-left text-gray-300">
+                        <thead class="text-xs uppercase bg-gray-700">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Locations</th>
                                 <th scope="col" class="px-6 py-3">Dates</th>
@@ -59,7 +57,7 @@
                         </thead>
                         <tbody>
                             {{ range $location, $dates := .Relations.DatesLocations }}
-                            <tr class="border-b border-opacity-20 border-white hover:bg-opacity-10 hover:bg-white transition duration-300">
+                            <tr class="border-b border-gray-700 hover:bg-gray-600 transition duration-300">
                                 <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{$location}}
                                 </th>
