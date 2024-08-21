@@ -29,6 +29,5 @@ func GetLocations(url string) ([]Location, error) {
 		return nil, fmt.Errorf("error unmarshaling JSON: %w", err)
 	}
 
-	// Extract locations from locationIndex, assuming LocationIndex has a field Locations of type []Location
 	return locationIndex.Index, nil
 }
