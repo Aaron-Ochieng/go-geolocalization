@@ -10,17 +10,17 @@ import (
 func LocationsHandler(w http.ResponseWriter, r *http.Request) {
 	locations, err := utils.GetLocations(utils.GetApiIndex().Locations)
 	if err != nil {
-		http.Error(w, "Error fetching locations", http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 	usernames, err := utils.GetArtists()
 	if err != nil {
-		http.Error(w, "Error fetching locations", http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 	tmpl, err := template.ParseFiles("templates/locations.html")
 	if err != nil {
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 
