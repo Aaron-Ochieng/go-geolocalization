@@ -11,7 +11,7 @@ import (
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	artists, err := utils.GetArtists()
 	if err != nil {
-		http.Error(w, "Error fetching artists", http.StatusInternalServerError)
+		ErrorHandler(w,r,http.StatusInternalServerError)
 		return
 	}
 
