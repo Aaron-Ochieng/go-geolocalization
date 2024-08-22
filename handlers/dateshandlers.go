@@ -13,7 +13,7 @@ func DatesHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
-	users, err := utils.GetArtists()
+	users, err := utils.GetArtists(utils.GetApiIndex().Artists)
 	if err != nil {
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return

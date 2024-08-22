@@ -25,6 +25,12 @@ func HandleUrls(w http.ResponseWriter, r *http.Request) {
 		} else {
 			ErrorHandler(w, r, 405)
 		}
+	case "/search":
+		if r.Method == "GET" {
+			SearchHandler(w, r)
+		} else {
+			ErrorHandler(w, r, 405)
+		}
 	default:
 		matched, _ := regexp.MatchString(`^/details/\d+$`, r.URL.Path)
 		if matched {

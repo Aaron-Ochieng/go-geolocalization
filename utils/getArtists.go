@@ -7,10 +7,7 @@ import (
 	"net/http"
 )
 
-func GetArtists() ([]Artists, error) {
-	apiIndex := GetApiIndex()
-	artistsURL := apiIndex.Artists
-
+func GetArtists(artistsURL string) ([]Artists, error) {
 	resp, err := http.Get(artistsURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch artists: %w", err)
