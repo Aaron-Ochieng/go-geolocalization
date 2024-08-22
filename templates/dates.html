@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Artist Locations</title>
+    <title>Artist Dates</title>
 </head>
 
 <body class="bg-slate-800 p-6">
@@ -14,8 +14,8 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="/" class="text-2xl font-bold text-white hover:text-gray-400">Groupie Tracker</a>
             <div>
-                <a href="/" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Artists
+                <a href="/locations" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Locations
                 </a>
             </div>
         </div>
@@ -23,18 +23,18 @@
 
     <!-- Main Content -->
     <div class="container mx-auto">
-        <h1 class="text-4xl text-white mb-6">Artist Locations</h1>
+        <h1 class="text-4xl text-white mb-6">Artist Dates</h1>
         
-        <!-- Artist Locations Grid -->
+        <!-- Artist Dates Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {{ range . }} <!-- Loop through the data -->
             <div class="bg-gray-800 p-4 rounded-lg shadow-md text-white">
-                <h2 class="text-2xl font-bold mb-4">Artist  Name: {{.Id}}</h2> <!-- Display the artist's ID -->
+                <h2 class="text-2xl font-bold mb-4">Artist ID: {{.Id}}</h2> <!-- Display the artist's ID -->
                 
-                <!-- Display locations -->
-                <p class="text-lg font-semibold mb-2">Locations:</p>
+                <!-- Display dates -->
+                <p class="text-lg font-semibold mb-2">Dates:</p>
                 <ul class="list-disc list-inside ml-4">
-                    {{ range .Locations }}
+                    {{ range .Dates }}
                     <li>{{ . }}</li>
                     {{ end }}
                 </ul>
