@@ -31,7 +31,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	// Parse and execute the template
-	tmpl, err := template.ParseFiles("templates/locations.html")
+	tmpl, err := template.ParseFiles("templates/artists.html")
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
