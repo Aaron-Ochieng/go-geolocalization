@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -19,7 +18,6 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, r, http.StatusBadRequest)
 		return
 	}
-	fmt.Println(idStr)
 
 	// Fetch relations
 	relations, err := utils.GetRelations(utils.GetApiIndex().Relation + "/" + strconv.Itoa(id))
@@ -60,14 +58,14 @@ func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 		"trimPrefix": strings.TrimPrefix,
 	}).ParseFiles("templates/details.html")
 	if err != nil {
-		ErrorHandler(w,r,http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 
 	// Execute template
 	err = tmpl.Execute(w, data)
 	if err != nil {
-		ErrorHandler(w,r,http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 }
