@@ -40,7 +40,7 @@ func HandleUrls(w http.ResponseWriter, r *http.Request) {
 				ErrorHandler(w, r, 405)
 			}
 		} else {
-			ErrorHandler(w, r, 400)
+			ErrorHandler(w, r, 404)
 		}
 	}
 }
