@@ -28,14 +28,16 @@
         <!-- Artist Dates Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {{ range . }} <!-- Loop through the data -->
-            <div class="bg-gray-800 p-4 rounded-lg shadow-md text-white">
-                <h2 class="text-2xl font-bold mb-4">Artist ID: {{.Id}}</h2> <!-- Display the artist's ID -->
+            <div class="bg-slate-700 p-8 rounded-2xl border border-gray-700 rounded-lg shadow-md text-white">
+                
+                    <h2 class="text-2xl font-semibold mb-4 text-gray-300"> {{.Name}}</h2> <!-- Display the artist's ID -->
+              
                 
                 <!-- Display dates -->
-                <p class="text-lg font-semibold mb-2">Dates:</p>
+                <p class="text-lg font-semibold mb-2 text-gray-300">Dates:</p>
                 <ul class="list-disc list-inside ml-4">
                     {{ range .Dates }}
-                    <li>{{ . }}</li>
+                    <li class="text-white">{{ . }}</li>
                     {{ end }}
                 </ul>
             </div>
