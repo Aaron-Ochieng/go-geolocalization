@@ -9,7 +9,7 @@ import (
 )
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
-	artists, err := utils.GetArtists()
+	artists, err := utils.GetArtists(utils.GetApiIndex().Artists)
 	if err != nil {
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return

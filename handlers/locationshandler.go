@@ -13,7 +13,7 @@ func LocationsHandler(w http.ResponseWriter, r *http.Request) {
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
-	usernames, err := utils.GetArtists()
+	usernames, err := utils.GetArtists(utils.GetApiIndex().Artists)
 	if err != nil {
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
