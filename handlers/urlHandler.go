@@ -13,18 +13,6 @@ func HandleUrls(w http.ResponseWriter, r *http.Request) {
 		} else {
 			ErrorHandler(w, r, 405)
 		}
-	case "/locations":
-		if r.Method == "GET" {
-			LocationsHandler(w, r)
-		} else {
-			ErrorHandler(w, r, 405)
-		}
-	case "/dates":
-		if r.Method == "GET" {
-			DatesHandler(w, r)
-		} else {
-			ErrorHandler(w, r, 405)
-		}
 	case "/search":
 		if r.Method == "GET" {
 			SearchHandler(w, r)
