@@ -17,6 +17,11 @@ h1 {
   animation: shine 1.5s infinite;
 }
 
+.search-container {
+  padding-bottom: 2em;
+  align-self: center;
+}
+
 .container {
   max-width: auto;
   margin: 0 auto;
@@ -199,12 +204,14 @@ nav a:hover {
   padding: 1rem;
 }
 
+
 .card-title {
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   color: #f7fafc;
 }
+
 
 .card-info {
   display: flex;
@@ -227,7 +234,7 @@ nav a:hover {
 }
 
 .grid:hover .card:not(:hover) {
-  filter: blur(4px);
+  filter: blur(1px);
 }
 
 .grid .card {
@@ -249,21 +256,6 @@ nav a:hover {
   }
 }
 
-@keyframes rotateButton {
-  0% {
-      transform: rotate(0deg);
-  }
-  25% {
-      transform: rotate(3deg);
-  }
-  75% {
-      transform: rotate(-3deg);
-  }
-  100% {
-      transform: rotate(0deg);
-  }
-}
-
 .card:hover img {
   animation: rotateImage 2s ease-in-out infinite;
 }
@@ -271,6 +263,7 @@ nav a:hover {
 .card:hover {
   animation: pulse 1.5s infinite;
 }
+
 
 @keyframes pulse {
   0% {
@@ -282,92 +275,4 @@ nav a:hover {
   100% {
     transform: scale(1);
   }
-}
-
-.card:hover {
-  animation: bounce 0.5s;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.card:hover {
-  animation: shake 0.5s;
-}
-
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  75% {
-    transform: translateX(5px);
-  }
-}
-
-.card:hover {
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-  animation: glow 1.5s infinite alternate;
-}
-
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
-  }
-  100% {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-  }
-}
-
-.card {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.card-content {
-  overflow: hidden;
-  position: relative;
-}
-
-.card-title {
-  position: relative;
-  left: -100%;
-  transition: left 0.5s;
-}
-
-.card:hover .card-title {
-  left: 0;
-}
-
-.card {
-  position: relative;
-  overflow: hidden;
-}
-
-.card img {
-  transition: opacity 0.5s ease;
-}
-
-.card:hover img {
-  opacity: 0.5;
-}
-
-.card:hover .card-content {
-  filter: brightness(0.7);
 }
