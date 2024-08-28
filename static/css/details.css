@@ -1,0 +1,186 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1f2937; /* Tailwind's bg-gray-800 */
+    color: #f1f5f9; /* Tailwind's text-gray-100 */
+    margin: 0;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  /* Button Styles */
+  button {
+    background-color: #2563eb; /* Tailwind's bg-blue-600 */
+    color: #ffffff; /* Tailwind's text-white */
+    font-weight: bold;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #1d4ed8; /* Tailwind's hover:bg-blue-700 */
+  }
+  
+  /* Container Styles */
+  .container {
+    width: 100%;
+    max-width: 1024px; /* Tailwind's max-w-4xl */
+    margin-bottom: 24px; /* Tailwind's mb-6 */
+    padding: 16px; /* Tailwind's p-8 */
+    background-color: #1f2937; /* Tailwind's bg-gray-800 */
+    border-radius: 16px; /* Tailwind's rounded-2xl */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Tailwind's shadow-xl */
+    position: relative;
+    overflow: hidden;
+    text-align: center; /* Center-align text in the container */
+  }
+  
+  /* Overlay Effect */
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Tailwind's bg-opacity-10 */
+    z-index: 0;
+  }
+  
+  /* Container Content Styles */
+  .container-content {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Rotating Animation for Image */
+  @keyframes rotateImage {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Image Styles */
+  img {
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Tailwind's shadow-lg */
+    animation: rotateImage 10s linear infinite; /* Infinite rotation with a duration of 10s */
+  }
+  
+  /* Headings and Text */
+  h1, h2 {
+    margin-bottom: 24px;
+  }
+  
+  h1 {
+    font-size: 2.5rem; /* Tailwind's text-5xl */
+    font-weight: bold;
+  }
+  
+  h2 {
+    font-size: 1.875rem; /* Tailwind's text-3xl */
+    font-weight: 600;
+  }
+  
+  p {
+    margin: 0 16px;
+    font-size: 1.125rem; /* Tailwind's text-lg */
+  }
+  
+  /* Album Info Styles */
+  .album-info {
+    margin-bottom: 32px;
+  }
+  
+  /* Info Title Styles */
+  .info-title {
+    font-size: 2rem; /* Medium font size */
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  /* Info Text Styles */
+  .info-text {
+    font-size: 1.125rem; /* Slightly larger than normal text */
+    margin: 0 16px;
+  }
+  
+  /* Band Members Styles */
+  .band-members {
+    margin: 32px 0;
+  }
+  
+  .members-title {
+    font-size: 1.875rem; /* Tailwind's text-3xl */
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .members-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  /* Member Styles */
+  .band-member {
+    background-color: #374151; /* Tailwind's bg-gray-700 */
+    color: #f1f5f9; /* Tailwind's text-gray-100 */
+    padding: 8px 16px;
+    border-radius: 9999px; /* Tailwind's rounded-full */
+    margin: 4px; /* Tailwind's my-1 */
+    font-size: 1rem; /* Tailwind's text-lg */
+  }
+  
+  /* Tour Dates Table Styles */
+  .tour-dates {
+    margin-top: 32px; /* Tailwind's mt-8 */
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: #d1d5db; /* Tailwind's text-gray-300 */
+  }
+  
+  th, td {
+    padding: 12px 24px; /* Tailwind's px-6 py-3 */
+  }
+  
+  thead {
+    background-color: #374151; /* Tailwind's bg-gray-700 */
+    text-transform: uppercase;
+    font-size: 0.75rem; /* Tailwind's text-xs */
+  }
+  
+  tbody tr {
+    border-bottom: 1px solid #374151; /* Tailwind's border-b border-gray-700 */
+    transition: background-color 0.3s ease;
+  }
+  
+  tbody tr:hover {
+    background-color: #4b5563; /* Tailwind's hover:bg-gray-600 */
+  }
+  
+  /* No Info Styles */
+  .no-info {
+    font-size: 1.125rem; /* Slightly larger than normal text */
+    font-style: italic;
+  }
+  
