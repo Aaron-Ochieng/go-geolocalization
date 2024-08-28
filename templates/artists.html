@@ -8,17 +8,21 @@
     <link rel="icon" href="/static/img/fav.ico" type="image/x-icon">
 </head>
 <body>
-    <nav>
+    <div class="container"></div>
+    <nav class="nav-bar">
         <div class="container">
-            <h1>Groupie Tracker</h1>
+            <a href="/" class="brand-name">Groupie Tracker</a>
+            <div class="search-container">
+                <!-- Search Form -->
+                <form action="/search" method="GET" class="search-form">
+                    <input type="text" name="query" placeholder="Search..." class="search-input" required>
+                    <button type="submit" class="search-button">
+                        Search
+                    </button>
+                </form>
+            </div>
         </div>
     </nav>
-    <div class="search-container">
-        <form action="/search" method="GET" class="search-form">
-            <input type="text" name="query" placeholder="Search artists" class="search-input" required>
-            <button type="submit" class="search-button">Search</button>
-        </form>
-    </div>
     
     <main class="container">
         <div class="grid">

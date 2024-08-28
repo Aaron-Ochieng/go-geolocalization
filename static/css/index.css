@@ -8,14 +8,6 @@ h1 {
   font-size: 3rem;
   font-weight: bold;
   color: #ffffff;
-  text-align: center;
-  margin: 0;
-  padding: 16px;
-  background: linear-gradient(90deg, #2563eb, #1d4ed8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
-  animation: shine 1.5s infinite;
 }
 
 .search-container {
@@ -28,11 +20,13 @@ h1 {
   margin: 0 auto;
 }
 
+/* Make the nav bar responsive */
 nav .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1.5em;
+  flex-wrap: wrap; /* Allows wrapping content on smaller screens */
 }
 
 nav a {
@@ -138,13 +132,13 @@ nav a:hover {
 
 @media (min-width: 640px) {
   .grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
   .grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -157,6 +151,7 @@ nav a:hover {
   border-radius: 0.5rem; /* Tailwind's rounded-lg */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Tailwind's shadow */
   transition: background-color 0.3s ease; /* Tailwind's hover:bg-gray-700 */
+  text-decoration: none;
 }
 
 .card:hover {
@@ -172,46 +167,41 @@ nav a:hover {
 
 @media (min-width: 768px) {
   .card {
-      flex-direction: row;
-      max-width: 36rem;
+    flex-direction: row;
+    max-width: 36rem;
   }
   .card img {
-      width: 12rem;
-      height: auto;
-      border-top-left-radius: 0.5rem;
-      border-bottom-left-radius: 0.5rem;
+    width: 12rem;
+    height: auto;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
   }
 }
 
 .card-content {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
+  justify-content: space-between 1em;
+  padding: 0em;
 }
-
 
 .card-title {
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
   color: #f7fafc;
+  padding-left: 0.8em;
 }
-
 
 .card-info {
   display: flex;
   flex-direction: row;
   color: #a0aec0;
+  padding-left: 1em;
 }
 
 .card-info span {
   font-weight: 600;
-}
-
-.card-info p {
-  font-size: 0.875rem;
-  margin-left: 0.5rem;
 }
 
 .card:hover img {
@@ -220,8 +210,46 @@ nav a:hover {
 }
 
 .grid:hover .card:not(:hover) {
-  filter: blur(0.2px);
+  filter: blur(0.5px);
 }
 
+/* Add media queries to make navbar contents smaller on smaller screens */
+@media (max-width: 768px) {
+  nav a {
+    font-size: 1.2rem; /* Reduce font size for smaller screens */
+  }
 
+  .search-input {
+    padding: 0.4rem; /* Reduce padding */
+  }
 
+  .search-button {
+    padding: 0.5rem 1rem; /* Reduce padding */
+    font-size: 0.9rem; /* Reduce font size */
+  }
+}
+
+@media (max-width: 480px) {
+  nav a {
+    font-size: 1rem; /* Further reduce font size for very small screens */
+  }
+
+  .search-input {
+    padding: 0.3rem; /* Further reduce padding */
+    font-size: 0.8rem; /* Reduce font size */
+  }
+
+  .search-button {
+    padding: 0.4rem 0.8rem; /* Further reduce padding */
+    font-size: 0.8rem; /* Further reduce font size */
+  }
+
+  .nav-bar {
+    flex-direction: column; /* Stack navbar contents on smaller screens */
+    align-items: center; /* Center align the navbar contents */
+  }
+
+  .search-container {
+    margin-top: 1em; /* Add margin to separate elements */
+  }
+}
