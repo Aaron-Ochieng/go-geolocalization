@@ -166,3 +166,127 @@ func TestGetArtistsError(t *testing.T) {
 		t.Error("Expected error with invalid JSON, got nil")
 	}
 }
+
+func TestGetDates(t *testing.T) {
+	// Create a mock server
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Check if the correct endpoint is being called
+		if r.URL.String() != "/api/dates" {
+			t.Errorf("Expected to request '/api/dates', got: %s", r.URL.String())
+		}
+
+		// Create mock date data based on the provided sample
+		mockDateIndex := utils.DateIndex{
+			Index: []utils.Date{
+				{
+					Id: 1,
+					Dates: []string{
+						"*23-08-2019", "*22-08-2019", "*20-08-2019",
+						"*26-01-2020", "*28-01-2020", "*30-01-2019",
+						"*07-02-2020", "*10-02-2020",
+					},
+				},
+				{
+					Id: 2,
+					Dates: []string{
+						"*05-12-2019", "06-12-2019", "07-12-2019",
+						"08-12-2019", "09-12-2019", "*16-11-2019",
+						"*15-11-2019",
+					},
+				},
+				{
+					Id: 3,
+					Dates: []string{
+						"*10-05-2007", "02-07-2005", "29-10-1994",
+						"28-10-1994", "27-10-1994", "26-10-1994",
+						"23-10-1994", "22-10-1994", "21-10-1994",
+						"20-10-1994", "19-10-1994", "17-10-1994",
+						"16-10-1994", "15-10-1994", "14-10-1994",
+						"13-10-1994", "12-10-1994", "*25-09-1994",
+						"*23-09-1994",
+					},
+				},
+			},
+		}
+
+		// Write the mock data as response
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(mockDateIndex)
+	}))
+	defer server.Close()
+
+	// Call the function we're testing
+	result, err := utils.GetDates(server.URL + "/api/dates")
+	// Check for errors
+	if err != nil {
+		t.Fatalf("utils.GetDates() returned an error: %v", err)
+	}
+
+	// Define the expected result
+	expected := []utils.Date{
+		{
+			Id: 1,
+			Dates: []string{
+				"*23-08-2019", "*22-08-2019", "*20-08-2019",
+				"*26-01-2020", "*28-01-2020", "*30-01-2019",
+				"*07-02-2020", "*10-02-2020",
+			},
+		},
+		{
+			Id: 2,
+			Dates: []string{
+				"*05-12-2019", "06-12-2019", "07-12-2019",
+				"08-12-2019", "09-12-2019", "*16-11-2019",
+				"*15-11-2019",
+			},
+		},
+		{
+			Id: 3,
+			Dates: []string{
+				"*10-05-2007", "02-07-2005", "29-10-1994",
+				"28-10-1994", "27-10-1994", "26-10-1994",
+				"23-10-1994", "22-10-1994", "21-10-1994",
+				"20-10-1994", "19-10-1994", "17-10-1994",
+				"16-10-1994", "15-10-1994", "14-10-1994",
+				"13-10-1994", "12-10-1994", "*25-09-1994",
+				"*23-09-1994",
+			},
+		},
+	}
+
+	// Compare the result with the expected output
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("utils.GetDates() = %v, want %v", result, expected)
+	}
+}
+
+func TestGetDatesError(t *testing.T) {
+	// Test with invalid URL
+	_, err := utils.GetDates("http://invalid-url")
+	if err == nil {
+		t.Error("Expected error with invalid URL, got nil")
+	}
+
+	// Test with server error
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+	}))
+	defer server.Close()
+
+	_, err = utils.GetDates(server.URL)
+	if err == nil {
+		t.Error("Expected error with server error, got nil")
+	}
+
+	// Test with invalid JSON
+	serverInvalidJSON := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("invalid json"))
+	}))
+	defer serverInvalidJSON.Close()
+
+	_, err = utils.GetDates(serverInvalidJSON.URL)
+	if err == nil {
+		t.Error("Expected error with invalid JSON, got nil")
+	}
+}
