@@ -290,3 +290,135 @@ func TestGetDatesError(t *testing.T) {
 		t.Error("Expected error with invalid JSON, got nil")
 	}
 }
+
+func TestGetLocations(t *testing.T) {
+	// Create a mock server
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Check if the correct endpoint is being called
+		if r.URL.String() != "/api/locations" {
+			t.Errorf("Expected to request '/api/locations', got: %s", r.URL.String())
+		}
+
+		// Create mock location data based on the provided sample
+		mockLocationIndex := utils.LocationIndex{
+			Index: []utils.Location{
+				{
+					Id: 1,
+					Locations: []string{
+						"north_carolina-usa",
+						"georgia-usa",
+						"los_angeles-usa",
+						"saitama-japan",
+						"osaka-japan",
+						"nagoya-japan",
+						"penrose-new_zealand",
+						"dunedin-new_zealand",
+					},
+					Dates: "https://groupietrackers.herokuapp.com/api/dates/1",
+				},
+				{
+					Id: 2,
+					Locations: []string{
+						"playa_del_carmen-mexico",
+						"papeete-french_polynesia",
+						"noumea-new_caledonia",
+					},
+					Dates: "https://groupietrackers.herokuapp.com/api/dates/2",
+				},
+				{
+					Id: 3,
+					Locations: []string{
+						"london-uk",
+						"lausanne-switzerland",
+						"lyon-france",
+					},
+					Dates: "https://groupietrackers.herokuapp.com/api/dates/3",
+				},
+			},
+		}
+
+		// Write the mock data as response
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(mockLocationIndex)
+	}))
+	defer server.Close()
+
+	// Call the function we're testing
+	result, err := utils.GetLocations(server.URL + "/api/locations")
+	// Check for errors
+	if err != nil {
+		t.Fatalf("GetLocations() returned an error: %v", err)
+	}
+
+	// Define the expected result
+	expected := []utils.Location{
+		{
+			Id: 1,
+			Locations: []string{
+				"north_carolina-usa",
+				"georgia-usa",
+				"los_angeles-usa",
+				"saitama-japan",
+				"osaka-japan",
+				"nagoya-japan",
+				"penrose-new_zealand",
+				"dunedin-new_zealand",
+			},
+			Dates: "https://groupietrackers.herokuapp.com/api/dates/1",
+		},
+		{
+			Id: 2,
+			Locations: []string{
+				"playa_del_carmen-mexico",
+				"papeete-french_polynesia",
+				"noumea-new_caledonia",
+			},
+			Dates: "https://groupietrackers.herokuapp.com/api/dates/2",
+		},
+		{
+			Id: 3,
+			Locations: []string{
+				"london-uk",
+				"lausanne-switzerland",
+				"lyon-france",
+			},
+			Dates: "https://groupietrackers.herokuapp.com/api/dates/3",
+		},
+	}
+
+	// Compare the result with the expected output
+	if !reflect.DeepEqual(result, expected) {
+		t.Errorf("GetLocations() = %v, want %v", result, expected)
+	}
+}
+
+func TestGetLocationsError(t *testing.T) {
+	// Test with invalid URL
+	_, err := utils.GetLocations("http://invalid-url")
+	if err == nil {
+		t.Error("Expected error with invalid URL, got nil")
+	}
+
+	// Test with server error
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+	}))
+	defer server.Close()
+
+	_, err = utils.GetLocations(server.URL)
+	if err == nil {
+		t.Error("Expected error with server error, got nil")
+	}
+
+	// Test with invalid JSON
+	serverInvalidJSON := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("invalid json"))
+	}))
+	defer serverInvalidJSON.Close()
+
+	_, err = utils.GetLocations(serverInvalidJSON.URL)
+	if err == nil {
+		t.Error("Expected error with invalid JSON, got nil")
+	}
+}
