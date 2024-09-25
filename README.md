@@ -1,6 +1,6 @@
-# Groupie-tracker
+# Groupie-tracker-Visualizations
 
-Groupie Tracker is a web application designed to interact with a given API to manipulate and display data about bands and artists. The project involves creating a user-friendly website that visualizes this information through various data visualizations such as blocks, cards, tables, lists, pages, and graphics.
+Groupie Tracker Visualizations is a web application designed to interact with a given API to manipulate and display data about bands and artists. The project involves creating a user-friendly website that visualizes this information through various data visualizations such as blocks, cards, tables, lists, pages, and graphics.
 
 ## API Overview
 
@@ -40,13 +40,13 @@ To run the project, follow these steps:
 1. Clone the repository.
    
    ```bash
-   git clone https://learn.zone01kisumu.ke/git/aaochieng/groupie-tracker.git
+   git clone https://learn.zone01kisumu.ke/git/aaochieng/groupie-tracker-visualizations
    ```
 
 2. Navigate to the project directory.
    
    ```bash
-   cd groupie-tracker
+   cd groupie-tracker-visualizations
    ```
 
 3. Run the server using the command:
