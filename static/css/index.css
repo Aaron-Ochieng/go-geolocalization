@@ -252,10 +252,10 @@ button:hover {
 }
 
 @media (max-width: 992px) {
-  nav {
+  /* nav {
     flex-direction: column;
     align-items: flex-start;
-  }
+  } */
 
   h1 {
     padding-bottom: 1em;
@@ -307,6 +307,11 @@ button:hover {
 }
 
 @media (max-width: 576px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }

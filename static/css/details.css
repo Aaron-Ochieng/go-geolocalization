@@ -30,7 +30,7 @@ button:hover {
 /* Container Styles */
 .container {
     width: 100%;
-    max-width: 1024px;
+    max-width: 800px;
     margin-bottom: 24px;
     padding: 16px;
     background-color: #1f2937;
