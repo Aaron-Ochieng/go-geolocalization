@@ -4,54 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupie Tracker</title>
-    <link href="/static/css/index.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="icon" href="/static/img/fav.ico" type="image/x-icon">
     <style>
         .artist-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
         .artist-card:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
-        
         .artist-card:hover ~ .artist-card {
             filter: blur(5px);
         }
-
-        /* Ensures all other cards are blurred when any one card is hovered */
         .artist-card:hover ~ * {
             filter: blur(5px);
         }
-
         .artist-card-container:hover .artist-card {
             filter: none;
+        }
+        @media (max-width: 640px) {
+            .artist-card:hover {
+                transform: scale(1.02);
+            }
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto px-4">
         <nav class="bg-transparent">
-            <div class="container mx-auto flex justify-between items-center py-4">
+            <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center py-4 space-y-4 sm:space-y-0">
                 <a href="/" class="text-2xl font-bold text-white hover:text-blue-400 transition duration-300">Groupie Tracker</a>
-                <form action="/search" method="GET" class="flex space-x-2">
-                    <input type="text" name="query" placeholder="Search..." class="border border-gray-600 rounded-lg px-4 py-2 bg-gray-700 text-white" required>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                <form action="/search" method="GET" class="flex w-full sm:w-auto">
+                    <input type="text" name="query" placeholder="Search..." class="flex-grow sm:flex-grow-0 border border-gray-600 rounded-l-lg px-4 py-2 bg-gray-700 text-white" required>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition duration-300">
                         Search
                     </button>
                 </form>
             </div>
         </nav>
     </div>
-
-    <main class="container mx-auto py-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 artist-card-container">
+    <main class="container mx-auto py-8 px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 artist-card-container">
             {{ range . }}
             <a href="/details/{{.Id}}" class="bg-gray-800 p-6 rounded-lg shadow hover:shadow-lg artist-card transition duration-300 text-center transform cursor-pointer">
-                <img src="{{.Image}}" alt="{{.Name}}'s image" class="w-29 h-29 object-cover rounded-full mx-auto mb-4 transition duration-300">
-                <h2 class="text-lg md:text-xl lg:text-2xl font-semibold transition duration-300">{{.Name}}</h2>
-                <div class="text-sm md:text-base text-gray-400">
+                <img src="{{.Image}}" alt="{{.Name}}'s image" class="w-24 h-24 sm:w-29 sm:h-29 object-cover rounded-full mx-auto mb-4 transition duration-300">
+                <h2 class="text-lg sm:text-xl lg:text-2xl font-semibold transition duration-300">{{.Name}}</h2>
+                <div class="text-sm sm:text-base text-gray-400">
                     <p>First Album: {{.FirstAlbum}}</p>
                     <p>Creation Date: {{.CreationDate}}</p>
                 </div>

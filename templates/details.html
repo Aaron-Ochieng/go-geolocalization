@@ -1,80 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/details.css">
+    <title>Artist Details</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="icon" href="/static/img/fav.ico" type="image/x-icon">
 </head>
-<body>
-
-    <div class="container">
-        <div class="card">
-            <div class="overlay"></div>
-            <div class="content">
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6">
                 {{if .Artist}}
-                <div class="image-container">
-                    <img src="{{.Artist.Image}}" alt="Artist Image" class="artist-image">
+                <div class="flex flex-col items-center mb-6">
+                    <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}'s image" class="w-32 h-32 object-cover rounded-full mb-4">
+                    <h1 class="text-2xl md:text-3xl font-bold">{{ .Artist.Name }}</h1>
                 </div>
-                <h1 class="artist-name">{{ .Artist.Name }}</h1>
-                {{ end }}
-
-                <div class="album-info">
-                    <div class="info-title">First Album</div>
-                    <p class="info-text">{{.Artist.FirstAlbum}}</p>
+                {{end}}
+                
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold mb-2">First Album</h2>
+                    <p class="text-gray-400">{{.Artist.FirstAlbum}}</p>
                 </div>
 
                 {{if .Artist.Members}}
-                <div class="members-info">
-                    <h2 class="members-title">Band Members</h2>
-                    <div class="members-list">
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold mb-2">Band Members</h2>
+                    <div class="flex flex-wrap gap-2">
                         {{ range .Artist.Members }}
-                        <div class="member">{{.}}</div>
+                        <span class="bg-gray-700 text-white px-3 py-1 rounded-full text-sm">{{.}}</span>
                         {{ end }}
                     </div>
                 </div>
                 {{end}}
 
                 {{ if .Relations.DatesLocations }}
-                <h2 class="tour-title">Tour Dates and Locations</h2>
-                <div class="tour-dates">
-                    <table class="tour-table">
-                        <thead class="table-head">
-                            <tr>
-                                <th class="table-header">Locations</th>
-                                <th class="table-header">Dates</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{ range $location, $dates := .Relations.DatesLocations }}
-                            <tr class="table-row">
-                                <th class="table-location">
-                                    {{$location}}
-                                </th>
-                                <td class="table-dates">
-                                    {{ range $dates }}
-                                    <div class="date">{{.}}</div>
-                                    {{ end }}
-                                </td>
-                            </tr>
-                            {{end}}
-                        </tbody>
-                    </table>
+                <div>
+                    <h2 class="text-xl font-semibold mb-2">Tour Dates and Locations</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th class="p-3">Locations</th>
+                                    <th class="p-3">Dates</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{ range $location, $dates := .Relations.DatesLocations }}
+                                <tr class="border-b border-gray-700">
+                                    <td class="p-3">{{$location}}</td>
+                                    <td class="p-3">
+                                        {{ range $dates }}
+                                        <div>{{.}}</div>
+                                        {{ end }}
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 {{ else }}
-                <p class="no-info">No tour information available at the moment.</p>
+                <p class="text-gray-400">No tour information available at the moment.</p>
                 {{ end }}
             </div>
         </div>
+        
+        <div class="mt-8 text-center">
+            <button onclick="history.back()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                ← Go Back
+            </button>
+        </div>
     </div>
-    <div class="back-button">
-        <button onclick="history.back()" class="button">
-            ← Go Back
-        </button>
-    </div>
-
 </body>
-
 </html>
