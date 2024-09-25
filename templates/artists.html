@@ -16,28 +16,45 @@
                 <a href="/">Groupie Tracker</a>
             </div>
             <div>
-                <form action="/search" method="GET">
-                    <input type="text" name="query" placeholder="Search..." required>
-                    <button type="submit">Search</button>
-                </form>
+                <input type="text" id="search-bar" placeholder="Search..." oninput="filterArtists()" autocomplete="off">
             </div>
         </nav>
     </div>
     
     <main class="main container">
-        <div class="grid">
-            {{ range . }}
-            <a href="/details/{{.Id}}" class="artist-card">
-                <img src="{{.Image}}" alt="{{.Name}}'s image">
-                <h2>{{.Name}}</h2>
-                <div>
-                    <p>First Album: {{.FirstAlbum}}</p>
-                    <p>Creation Date: {{.CreationDate}}</p>
-                </div>
-            </a>
+        <div class="grid" id="artist-grid">
+            {{ if . }}
+                {{ range . }}
+                <a href="/details/{{.Id}}" class="artist-card">
+                    <img src="{{.Image}}" alt="{{.Name}}'s image">
+                    <h2>{{.Name}}</h2>
+                    <div>
+                        <p>First Album: {{.FirstAlbum}}</p>
+                        <p>Creation Date: {{.CreationDate}}</p>
+                    </div>
+                </a>
+                {{ end }}
+            {{ else }}
+                <p>No results found.</p>
             {{ end }}
         </div>
     </main>
+
+    <script>
+        const filterArtists = () => {
+            const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+            const artistCards = document.querySelectorAll('.artist-card');
+
+            artistCards.forEach(card => {
+                const artistName = card.querySelector('h2').textContent.toLowerCase();
+                if (artistName.includes(searchQuery)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
+    </script>
 </body>
 
 </html>
