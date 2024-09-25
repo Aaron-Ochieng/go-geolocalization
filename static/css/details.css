@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #1f2937;
@@ -182,4 +181,56 @@ tbody tr:hover {
 .no-info {
     font-size: 1.125rem;
     font-style: italic;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem; /* Adjust heading size */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Adjust heading size */
+    }
+
+    p {
+        font-size: 1rem; /* Adjust paragraph size */
+    }
+
+    img {
+        height: 200px; /* Resize images */
+        width: 200px;
+    }
+
+    button {
+        padding: 8px 12px; /* Adjust button size */
+    }
+
+    .container {
+        padding: 12px; /* Adjust container padding */
+    }
+
+    .members-list {
+        flex-direction: column; /* Stack members vertically */
+        align-items: center; /* Center align members */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem; /* Further adjust heading size */
+    }
+
+    h2 {
+        font-size: 1.25rem; /* Further adjust heading size */
+    }
+
+    .container {
+        padding: 8px; /* Further adjust container padding */
+    }
+
+    button {
+        width: 100%; /* Make buttons full width */
+        padding: 12px; /* Adjust button size */
+    }
 }
