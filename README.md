@@ -27,11 +27,9 @@ Also ensure that you have `git` installed on your machine
 
 This project will help you learn about:
 
-- Manipulation and storage of data.
-- JSON files and format.
-- HTML for web development.
-- Event creation and display.
-- Client-server interactions.
+- The basics of human-computer interface.
+- The basics of CSS.
+- Linking CSS and HTML.
 
 ## Usage
 
