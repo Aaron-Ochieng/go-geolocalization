@@ -53,6 +53,14 @@
                     card.style.display = 'none';
                 }
             });
+            artistCards.forEach(card => {
+                const artistName = card.querySelector('p').textContent.toLowerCase();
+                if (artistName.includes(searchQuery)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         };
     </script>
 </body>
