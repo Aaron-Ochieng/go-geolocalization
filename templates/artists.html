@@ -17,7 +17,12 @@
             </div>
             <div>
                 <input type="text" id="search-bar" placeholder="Search..." oninput="filterArtists()" autocomplete="off">
+
+                <div class="suggestions" style="display: block;">
+                    <!-- Search suggestions should show here -->
+                </div>
             </div>
+            
         </nav>
     </div>
     
@@ -44,24 +49,49 @@
         const filterArtists = () => {
             const searchQuery = document.getElementById('search-bar').value.toLowerCase();
             const artistCards = document.querySelectorAll('.artist-card');
+            const container = document.querySelector(".suggestions");
+
+            // Clear the suggestions container
+            container.innerHTML = '';
+
+            if (searchQuery === '') {
+                container.style.display = 'none'; // Hide the container when the search query is empty
+                artistCards.forEach(card => {
+                    card.style.display = 'block'; // Show all artist cards if there's no search query
+                });
+                return; // Exit the function early if there's no search query
+            } else {
+                container.style.display = 'block'; // Show the container when there's a search query
+            }
 
             artistCards.forEach(card => {
                 const artistName = card.querySelector('h2').textContent.toLowerCase();
                 if (artistName.includes(searchQuery)) {
                     card.style.display = 'block';
+
+                    // Create a new div for each matching artist
+                    const item = document.createElement("div");
+                    item.textContent = artistName;
+                    container.appendChild(item);
                 } else {
                     card.style.display = 'none';
                 }
             });
-            artistCards.forEach(card => {
-                const artistName = card.querySelector('p').textContent.toLowerCase();
-                if (artistName.includes(searchQuery)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        };
+       };
+
+        // const FirstAlbum = () => {
+        //     const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+        //     const artistCards = document.querySelectorAll('.artist-card');
+
+        //     artistCards.forEach(card => {
+        //         const artistName = card.querySelector('p').textContent.toLowerCase();
+        //         if (artistName.includes(searchQuery)) {
+        //             card.style.display = 'block';
+        //         } else {
+        //             card.style.display = 'none';
+        //         }
+        //     });
+        // };
     </script>
 </body>
 
