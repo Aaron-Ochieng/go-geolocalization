@@ -22,15 +22,18 @@
                     <!-- Search suggestions should show here -->
                 </div>
             </div>
-            
         </nav>
     </div>
-    
+
     <main class="main container">
         <div class="grid" id="artist-grid">
             {{ if . }}
                 {{ range . }}
-                <a href="/details/{{.Id}}" class="artist-card">
+                <a href="/details/{{.Id}}" class="artist-card" 
+                   data-members="{{.Members}}" 
+                   data-locations="{{.Locations}}" 
+                   data-firstalbum="{{.FirstAlbum}}" 
+                   data-creationdate="{{.CreationDate}}">
                     <img src="{{.Image}}" alt="{{.Name}}'s image">
                     <h2>{{.Name}}</h2>
                     <div>
@@ -66,10 +69,20 @@
 
             artistCards.forEach(card => {
                 const artistName = card.querySelector('h2').textContent.toLowerCase();
-                if (artistName.includes(searchQuery)) {
+                const artistMembers = card.getAttribute('data-members').toLowerCase();
+                const artistLocations = card.getAttribute('data-locations').toLowerCase();
+                const artistFirstAlbum = card.getAttribute('data-firstalbum').toLowerCase();
+                const artistCreationDate = card.getAttribute('data-creationdate').toLowerCase();
+
+                // Check if the search query matches any of the artist's fields
+                if (artistName.includes(searchQuery) || 
+                    artistMembers.includes(searchQuery) || 
+                    artistLocations.includes(searchQuery) || 
+                    artistFirstAlbum.includes(searchQuery) || 
+                    artistCreationDate.includes(searchQuery)) {
                     card.style.display = 'block';
 
-                    // Create a new div for each matching artist
+                    // Create a new div for each matching artist suggestion
                     const item = document.createElement("div");
                     item.textContent = artistName;
                     container.appendChild(item);
