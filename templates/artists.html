@@ -12,25 +12,30 @@
 <body>
     <div class="container">
         <nav>
-            <div>
+            <div class="title-container">
                 <a href="/">Groupie Tracker</a>
             </div>
             <div>
                 <input type="text" id="search-bar" placeholder="Search..." oninput="filterArtists()" autocomplete="off">
 
-                <div class="suggestions" style="display: block;">
-                    <!-- Search suggestions should show here -->
+                <div class="suggestions">
+                    <!-- Search suggestions will appear here -->
                 </div>
             </div>
-            
         </nav>
     </div>
-    
+
     <main class="main container">
         <div class="grid" id="artist-grid">
             {{ if . }}
                 {{ range . }}
-                <a href="/details/{{.Id}}" class="artist-card">
+                <a href="/details/{{.Id}}" class="artist-card" 
+                   data-id="{{.Id}}"
+                   data-name="{{.Name}}"
+                   data-members="{{.Members}}" 
+                   data-locations="{{.Locations}}" 
+                   data-firstalbum="{{.FirstAlbum}}" 
+                   data-creationdate="{{.CreationDate}}">
                     <img src="{{.Image}}" alt="{{.Name}}'s image">
                     <h2>{{.Name}}</h2>
                     <div>
@@ -43,55 +48,106 @@
                 <p>No results found.</p>
             {{ end }}
         </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button id="prev-page" onclick="changePage(-1)" disabled>Previous</button>
+            <span id="page-info"></span>
+            <button id="next-page" onclick="changePage(1)">Next</button>
+        </div>
     </main>
 
     <script>
+        const cardsPerPage = 18;  // Number of artist cards per page
+        let currentPage = 1;     // Current page
+
+        const artistCards = document.querySelectorAll('.artist-card');
+        const totalPages = Math.ceil(artistCards.length / cardsPerPage);
+
+        // Display the current page of artist cards
+        const showPage = (page) => {
+            // Calculate the index range for the current page
+            const start = (page - 1) * cardsPerPage;
+            const end = page * cardsPerPage;
+
+            // Hide all artist cards
+            artistCards.forEach(card => {
+                card.style.display = 'none';
+            });
+
+            // Show only the artist cards for the current page
+            artistCards.forEach((card, index) => {
+                if (index >= start && index < end) {
+                    card.style.display = 'block';
+                }
+            });
+
+            // Update the pagination controls
+            document.getElementById('page-info').textContent = `Page ${page} of ${totalPages}`;
+            document.getElementById('prev-page').disabled = page === 1;
+            document.getElementById('next-page').disabled = page === totalPages;
+        };
+
+        // Change page function (prev or next)
+        const changePage = (direction) => {
+            currentPage += direction;
+            showPage(currentPage);
+        };
+
+        // Initially display the first page
+        showPage(currentPage);
+
+        // Filter artist cards without resetting pagination
         const filterArtists = () => {
             const searchQuery = document.getElementById('search-bar').value.toLowerCase();
-            const artistCards = document.querySelectorAll('.artist-card');
             const container = document.querySelector(".suggestions");
 
             // Clear the suggestions container
             container.innerHTML = '';
 
             if (searchQuery === '') {
-                container.style.display = 'none'; // Hide the container when the search query is empty
-                artistCards.forEach(card => {
-                    card.style.display = 'block'; // Show all artist cards if there's no search query
-                });
-                return; // Exit the function early if there's no search query
+                container.style.display = 'none';
+                showPage(currentPage); // Show current page cards if there's no search query
+                return;
             } else {
-                container.style.display = 'block'; // Show the container when there's a search query
+                container.style.display = 'block';
             }
 
             artistCards.forEach(card => {
                 const artistName = card.querySelector('h2').textContent.toLowerCase();
-                if (artistName.includes(searchQuery)) {
-                    card.style.display = 'block';
+                const artistId = card.getAttribute('data-id');
+                const artistMembers = card.getAttribute('data-members').toLowerCase();
+                const artistLocations = card.getAttribute('data-locations').toLowerCase();
+                const artistFirstAlbum = card.getAttribute('data-firstalbum').toLowerCase();
+                const artistCreationDate = card.getAttribute('data-creationdate').toLowerCase();
 
-                    // Create a new div for each matching artist
-                    const item = document.createElement("div");
-                    item.textContent = artistName;
-                    container.appendChild(item);
-                } else {
-                    card.style.display = 'none';
+                if (artistName.includes(searchQuery)) {
+                    createSuggestion(container, artistName, artistId);
+                }
+                if (artistCreationDate.includes(searchQuery)) {
+                    createSuggestion(container, `CreationDate: ${artistCreationDate} - ${artistName}`, artistId);
+                }
+                if (artistFirstAlbum.includes(searchQuery)) {
+                    createSuggestion(container, `First Album: ${artistFirstAlbum} - ${artistName}`, artistId);
+                }
+                if (artistMembers.includes(searchQuery)) {
+                    createSuggestion(container, `${artistMembers} - member`, artistId);
+                }
+                if (artistLocations.includes(searchQuery)) {
+                    createSuggestion(container, `Locations: ${artistLocations} - ${artistName}`, artistId);
                 }
             });
-       };
+        };
 
-        // const FirstAlbum = () => {
-        //     const searchQuery = document.getElementById('search-bar').value.toLowerCase();
-        //     const artistCards = document.querySelectorAll('.artist-card');
-
-        //     artistCards.forEach(card => {
-        //         const artistName = card.querySelector('p').textContent.toLowerCase();
-        //         if (artistName.includes(searchQuery)) {
-        //             card.style.display = 'block';
-        //         } else {
-        //             card.style.display = 'none';
-        //         }
-        //     });
-        // };
+        const createSuggestion = (container, textContent, artistId) => {
+            const button = document.createElement("button");
+            button.textContent = textContent;
+            button.className = "suggestion-button";
+            button.addEventListener('click', () => {
+                window.location.href = `/details/${artistId}`;
+            });
+            container.appendChild(button);
+        };
     </script>
 </body>
 
