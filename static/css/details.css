@@ -31,7 +31,20 @@ button:hover {
 .container {
     width: 100%;
     max-width: 800px;
-    margin-bottom: 24px;
+    margin-top: 24px;
+    padding-top: 16px;
+    background-color: #1f2937;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.title-container {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
     padding: 16px;
     background-color: #1f2937;
     border-radius: 16px;
