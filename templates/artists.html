@@ -13,7 +13,7 @@
     <div class="container">
         <nav>
             <div class="title-container">
-                <a href="/">Groupie Tracker</a>
+                <a id="gp" href="/">Groupie Tracker</a>
             </div>
             <div>
                 <input type="text" id="search-bar" placeholder="Search..." oninput="filterArtists()" autocomplete="off">
@@ -28,24 +28,20 @@
     <main class="main container">
         <div class="grid" id="artist-grid">
             {{ if . }}
-                {{ range . }}
-                <a href="/details/{{.Id}}" class="artist-card" 
-                   data-id="{{.Id}}"
-                   data-name="{{.Name}}"
-                   data-members="{{.Members}}" 
-                   data-locations="{{.Locations}}" 
-                   data-firstalbum="{{.FirstAlbum}}" 
-                   data-creationdate="{{.CreationDate}}">
-                    <img src="{{.Image}}" alt="{{.Name}}'s image">
-                    <h2>{{.Name}}</h2>
-                    <div>
-                        <p>First Album: {{.FirstAlbum}}</p>
-                        <p>Creation Date: {{.CreationDate}}</p>
-                    </div>
-                </a>
-                {{ end }}
+            {{ range . }}
+            <a href="/details/{{.Id}}" class="artist-card" data-id="{{.Id}}" data-name="{{.Name}}"
+                data-members="{{.Members}}" data-locations="{{.Locations}}" data-firstalbum="{{.FirstAlbum}}"
+                data-creationdate="{{.CreationDate}}">
+                <img src="{{.Image}}" alt="{{.Name}}'s image">
+                <h2>{{.Name}}</h2>
+                <div>
+                    <p>First Album: {{.FirstAlbum}}</p>
+                    <p>Creation Date: {{.CreationDate}}</p>
+                </div>
+            </a>
+            {{ end }}
             {{ else }}
-                <p>No results found.</p>
+            <p>No results found.</p>
             {{ end }}
         </div>
 
@@ -63,6 +59,7 @@
 
         const artistCards = document.querySelectorAll('.artist-card');
         const totalPages = Math.ceil(artistCards.length / cardsPerPage);
+        const title = document.getElementById("gp")
 
         // Display the current page of artist cards
         const showPage = (page) => {
@@ -107,10 +104,12 @@
 
             if (searchQuery === '') {
                 container.style.display = 'none';
+                title.style.display = "block";
                 showPage(currentPage); // Show current page cards if there's no search query
                 return;
             } else {
                 container.style.display = 'block';
+                title.style.display = "none";
             }
 
             artistCards.forEach(card => {
