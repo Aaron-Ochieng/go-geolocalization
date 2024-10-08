@@ -1,153 +1,249 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Groupie Tracker</title>
-    <link rel="stylesheet" href="/static/css/index.css"> <!-- Link to the external stylesheet -->
-    <link rel="icon" href="/static/img/fav.ico" type="image/x-icon">
-</head>
-
-<body>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="icon" href="/static/img/fav.ico" type="image/x-icon" />
+    <style>
+      /* Search container styles */
+      .search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 300px; /* Increased width */
+      }
+      .search-container input {
+        width: 100%;
+        padding: 10px 40px 10px 15px; /* Added padding for the search icon */
+        font-size: 16px; /* Increased font size */
+        border: 1px solid #070707;
+        border-radius: 4px;
+        color: white;
+      }
+      .search-icon {
+        position: absolute;
+        right: 10px;
+        color: #666;
+        pointer-events: none;
+      }
+      /* Suggestions styles */
+      .suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(15, 14, 14, 0.904);
+        border: 1px solid #070707;
+        border-top: none;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+        width: 300px; /* Match the width of the search container */
+      }
+      .suggestion-button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 12px 15px; /* Increased padding */
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: white;
+        font-size: 14px; /* Increased font size */
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <nav>
-            <div class="title-container">
-                <a id="gp" href="/">Groupie Tracker</a>
-            </div>
-            <div>
-                <input type="text" id="search-bar" placeholder="Search..." oninput="filterArtists()" autocomplete="off">
-
-                <div class="suggestions">
-                    <!-- Search suggestions will appear here -->
-                </div>
-            </div>
-        </nav>
+      <nav>
+        <div class="title-container">
+          <a href="/">Groupie Tracker</a>
+        </div>
+        <div class="search-container">
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search..."
+            oninput="filterArtists()"
+            autocomplete="off"
+          />
+          <svg
+            class="search-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <div class="suggestions">
+            <!-- Search suggestions will appear here -->
+          </div>
+        </div>
+      </nav>
     </div>
-
     <main class="main container">
-        <div class="grid" id="artist-grid">
-            {{ if . }}
-            {{ range . }}
-            <a href="/details/{{.Id}}" class="artist-card" data-id="{{.Id}}" data-name="{{.Name}}"
-                data-members="{{.Members}}" data-locations="{{.Locations}}" data-firstalbum="{{.FirstAlbum}}"
-                data-creationdate="{{.CreationDate}}">
-                <img src="{{.Image}}" alt="{{.Name}}'s image">
-                <h2>{{.Name}}</h2>
-                <div>
-                    <p>First Album: {{.FirstAlbum}}</p>
-                    <p>Creation Date: {{.CreationDate}}</p>
-                </div>
-            </a>
-            {{ end }}
-            {{ else }}
-            <p>No results found.</p>
-            {{ end }}
-        </div>
-
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            <button id="prev-page" onclick="changePage(-1)" disabled>Previous</button>
-            <span id="page-info"></span>
-            <button id="next-page" onclick="changePage(1)">Next</button>
-        </div>
+      <div class="grid" id="artist-grid">
+        {{ if . }} {{ range . }}
+        <a
+          href="/details/{{.Id}}"
+          class="artist-card"
+          data-id="{{.Id}}"
+          data-name="{{.Name}}"
+          data-members="{{range $index, $member := .Members}}{{if $index}},{{end}}{{$member}}{{end}}"
+          data-locations="{{range $index, $location := .Locations}}{{if $index}},{{end}}{{$location}}{{end}}"
+          data-firstalbum="{{.FirstAlbum}}"
+          data-creationdate="{{.CreationDate}}"
+        >
+          <img src="{{.Image}}" alt="{{.Name}}'s image" />
+          <h2>{{.Name}}</h2>
+          <div>
+            <p>First Album: {{.FirstAlbum}}</p>
+            <p>Creation Date: {{.CreationDate}}</p>
+          </div>
+        </a>
+        {{ end }} {{ else }}
+        <p>No results found.</p>
+        {{ end }}
+      </div>
+      <!-- Pagination Controls -->
+      <div class="pagination">
+        <button id="prev-page" onclick="changePage(-1)" disabled>
+          Previous
+        </button>
+        <span id="page-info"></span>
+        <button id="next-page" onclick="changePage(1)">Next</button>
+      </div>
     </main>
-
     <script>
-        const cardsPerPage = 18;  // Number of artist cards per page
-        let currentPage = 1;     // Current page
-
-        const artistCards = document.querySelectorAll('.artist-card');
-        const totalPages = Math.ceil(artistCards.length / cardsPerPage);
-        const title = document.getElementById("gp")
-
-        // Display the current page of artist cards
-        const showPage = (page) => {
-            // Calculate the index range for the current page
-            const start = (page - 1) * cardsPerPage;
-            const end = page * cardsPerPage;
-
-            // Hide all artist cards
-            artistCards.forEach(card => {
-                card.style.display = 'none';
-            });
-
-            // Show only the artist cards for the current page
-            artistCards.forEach((card, index) => {
-                if (index >= start && index < end) {
-                    card.style.display = 'block';
-                }
-            });
-
-            // Update the pagination controls
-            document.getElementById('page-info').textContent = `Page ${page} of ${totalPages}`;
-            document.getElementById('prev-page').disabled = page === 1;
-            document.getElementById('next-page').disabled = page === totalPages;
-        };
-
-        // Change page function (prev or next)
-        const changePage = (direction) => {
-            currentPage += direction;
-            showPage(currentPage);
-        };
-
-        // Initially display the first page
+      const cardsPerPage = 18; // Number of artist cards per page
+      let currentPage = 1; // Current page
+      const artistCards = document.querySelectorAll(".artist-card");
+      const totalPages = Math.ceil(artistCards.length / cardsPerPage);
+      // Display the current page of artist cards
+      const showPage = (page) => {
+        const start = (page - 1) * cardsPerPage;
+        const end = page * cardsPerPage;
+        artistCards.forEach((card, index) => {
+          card.style.display = index >= start && index < end ? "block" : "none";
+        });
+        document.getElementById(
+          "page-info"
+        ).textContent = `Page ${page} of ${totalPages}`;
+        document.getElementById("prev-page").disabled = page === 1;
+        document.getElementById("next-page").disabled = page === totalPages;
+      };
+      // Change page function (prev or next)
+      const changePage = (direction) => {
+        currentPage += direction;
         showPage(currentPage);
-
-        // Filter artist cards without resetting pagination
-        const filterArtists = () => {
-            const searchQuery = document.getElementById('search-bar').value.toLowerCase();
-            const container = document.querySelector(".suggestions");
-
-            // Clear the suggestions container
-            container.innerHTML = '';
-
-            if (searchQuery === '') {
-                container.style.display = 'none';
-                title.style.display = "block";
-                showPage(currentPage); // Show current page cards if there's no search query
-                return;
-            } else {
-                container.style.display = 'block';
-                title.style.display = "none";
+      };
+      // Initially display the first page
+      showPage(currentPage);
+      const filterArtists = () => {
+        const searchQuery = document
+          .getElementById("search-bar")
+          .value.toLowerCase();
+        const container = document.querySelector(".suggestions");
+        container.innerHTML = "";
+        if (searchQuery === "") {
+          container.style.display = "none";
+          showPage(currentPage);
+          return;
+        }
+        container.style.display = "block";
+        let suggestionsAdded = false;
+        artistCards.forEach((card) => {
+          const artistName = card.querySelector("h2").textContent;
+          const artistId = card.getAttribute("data-id");
+          const artistMembers = card
+            .getAttribute("data-members")
+            .split(",")
+            .map((member) => member.trim())
+            .filter((member) => member !== ""); // Filter out empty strings
+          const artistLocations = card
+            .getAttribute("data-locations")
+            .split(",")
+            .map((location) => location.trim())
+            .filter((location) => location !== ""); // Filter out empty strings
+          const artistFirstAlbum = card.getAttribute("data-firstalbum");
+          const artistCreationDate = card.getAttribute("data-creationdate");
+          // Check artist name
+          if (artistName.toLowerCase().includes(searchQuery)) {
+            createSuggestion(container, artistName, artistId);
+            suggestionsAdded = true;
+          }
+          // Check creation date
+          if (artistCreationDate.toLowerCase().includes(searchQuery)) {
+            createSuggestion(
+              container,
+              `${artistCreationDate} - creation date of ${artistName}`,
+              artistId
+            );
+            suggestionsAdded = true;
+          }
+          // Check first album
+          if (artistFirstAlbum.toLowerCase().includes(searchQuery)) {
+            createSuggestion(
+              container,
+              `${artistFirstAlbum} - first album of ${artistName}`,
+              artistId
+            );
+            suggestionsAdded = true;
+          }
+          // Check members
+          artistMembers.forEach((member) => {
+            if (member.toLowerCase().includes(searchQuery)) {
+              createSuggestion(
+                container,
+                `${member} - member of ${artistName}`,
+                artistId
+              );
+              suggestionsAdded = true;
             }
-
-            artistCards.forEach(card => {
-                const artistName = card.querySelector('h2').textContent.toLowerCase();
-                const artistId = card.getAttribute('data-id');
-                const artistMembers = card.getAttribute('data-members').toLowerCase();
-                const artistLocations = card.getAttribute('data-locations').toLowerCase();
-                const artistFirstAlbum = card.getAttribute('data-firstalbum').toLowerCase();
-                const artistCreationDate = card.getAttribute('data-creationdate').toLowerCase();
-
-                if (artistName.includes(searchQuery)) {
-                    createSuggestion(container, artistName, artistId);
-                }
-                if (artistCreationDate.includes(searchQuery)) {
-                    createSuggestion(container, `CreationDate: ${artistCreationDate} - ${artistName}`, artistId);
-                }
-                if (artistFirstAlbum.includes(searchQuery)) {
-                    createSuggestion(container, `First Album: ${artistFirstAlbum} - ${artistName}`, artistId);
-                }
-                if (artistMembers.includes(searchQuery)) {
-                    createSuggestion(container, `${artistMembers} - member`, artistId);
-                }
-                if (artistLocations.includes(searchQuery)) {
-                    createSuggestion(container, `Locations: ${artistLocations} - ${artistName}`, artistId);
-                }
-            });
-        };
-
-        const createSuggestion = (container, textContent, artistId) => {
-            const button = document.createElement("button");
-            button.textContent = textContent;
-            button.className = "suggestion-button";
-            button.addEventListener('click', () => {
-                window.location.href = `/details/${artistId}`;
-            });
-            container.appendChild(button);
-        };
+          });
+          // Check locations
+          artistLocations.forEach((location) => {
+            if (location.toLowerCase().includes(searchQuery)) {
+              createSuggestion(
+                container,
+                `${location} - location of ${artistName}`,
+                artistId
+              );
+              suggestionsAdded = true;
+            }
+          });
+        });
+        if (!suggestionsAdded) {
+          container.innerHTML = "<p>No matches found</p>";
+        }
+      };
+      const createSuggestion = (container, textContent, artistId) => {
+        const button = document.createElement("button");
+        button.textContent = textContent;
+        button.className = "suggestion-button";
+        button.addEventListener("click", () => {
+          window.location.href = `/details/${artistId}`;
+        });
+        container.appendChild(button);
+      };
+      // Close suggestions when clicking outside
+      document.addEventListener("click", function (event) {
+        const container = document.querySelector(".suggestions");
+        const searchBar = document.getElementById("search-bar");
+        if (!container.contains(event.target) && event.target !== searchBar) {
+          container.style.display = "none";
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>
