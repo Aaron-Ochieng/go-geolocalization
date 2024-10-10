@@ -1,6 +1,6 @@
-# Groupie-tracker-Visualizations
+# Groupie-Tracker-Search-Bar
 
-Groupie Tracker Visualizations is a web application designed to interact with a given API to manipulate and display data about bands and artists. The project involves creating a user-friendly website that visualizes this information through various data visualizations such as blocks, cards, tables, lists, pages, and graphics.
+Groupie Tracker Search Bar is a web application designed to interact with a given API to manipulate and display data about bands and artists. The project involves creating a user-friendly website that visualizes this information through various data visualizations such as blocks, cards, tables, lists, pages, and graphics and also allows search while while giving suggestions.
 
 ## API Overview
 
@@ -10,6 +10,17 @@ The provided API consists of four main parts:
 2. **Locations**: Lists the last and/or upcoming concert locations.
 3. **Dates**: Provides the last and/or upcoming concert dates.
 4. **Relation**: Links the artists, dates, and locations.
+
+## Search Implementation
+
+The search input handled here is case-insensitive.
+The search bar has typing suggestions as you write.
+The program handles search in these caases:
+- Artist/band name 
+- Band Members
+- Locations
+- First Album Date
+- Creation Date 
 
 ## Project Requirements
 
@@ -27,9 +38,10 @@ Also ensure that you have `git` installed on your machine
 
 This project will help you learn about:
 
-- The basics of human-computer interface.
-- The basics of CSS.
-- Linking CSS and HTML.
+- Manipulation, display and storage of data
+- HTML
+- Events creation and display
+- JSON files and format
 
 ## Usage
 
@@ -38,13 +50,13 @@ To run the project, follow these steps:
 1. Clone the repository.
    
    ```bash
-   git clone https://learn.zone01kisumu.ke/git/aaochieng/groupie-tracker-visualizations
+   git clone https://learn.zone01kisumu.ke/git/bshisia/groupie-tracker-search-bar
    ```
 
 2. Navigate to the project directory.
    
    ```bash
-   cd groupie-tracker-visualizations
+   cd groupie-tracker-search-bar
    ```
 
 3. Run the server using the command:
