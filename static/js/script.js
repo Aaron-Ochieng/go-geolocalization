@@ -52,7 +52,7 @@ const filterArtists = () => {
     const artistCreationDate = card.getAttribute("data-creationdate");
     // Check artist name
     if (artistName.toLowerCase().includes(searchQuery)) {
-      createSuggestion(container, artistName, artistId);
+      createSuggestion(container, `${artistName} - artist/band`, artistId);
       suggestionsAdded = true;
     }
     // Check creation date
