@@ -1,10 +1,17 @@
+/* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  background-color: #1a2639;
-  color: #ffffff;
   margin: 0;
   padding: 0;
+  background-color: #1a202c;
+  color: #ffffff;
 }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -53,64 +60,50 @@ body {
   pointer-events: none;
 }
 
-.container {
-  display: flex;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
+/* Error Page Styles */
+.error-content {
+  text-align: center;
+  padding: 100px 0;
 }
-.artist-info {
-  flex: 1;
-  margin-right: 2rem;
-}
-.artist-image {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-.artist-name {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-.details {
-  flex: 2;
-}
-.section {
-  margin-bottom: 2rem;
-}
-h2 {
+h1 {
+  font-size: 8rem;
+  margin: 0;
   color: #3498db;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 0.5rem;
 }
-.member-list {
-  list-style-type: none;
-  padding: 0;
+.error-message {
+  font-size: 2rem;
+  margin: 20px 0;
 }
-.member-list li {
-  margin-bottom: 0.5rem;
-}
-.tour-dates {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-}
-.tour-date {
-  background-color: #2c3e50;
-  padding: 1rem;
-  border-radius: 4px;
+.description {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 .home-button {
   display: inline-block;
-  margin-top: 2rem;
-  padding: 0.5rem 1rem;
+  padding: 12px 24px;
   background-color: #3498db;
   color: #ffffff;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 25px;
   transition: background-color 0.3s ease;
 }
 .home-button:hover {
   background-color: #2980b9;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+  .search-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+  h1 {
+    font-size: 6rem;
+  }
+  .error-message {
+    font-size: 1.5rem;
+  }
 }
