@@ -6,59 +6,10 @@
     <title>Groupie Tracker</title>
     <link rel="stylesheet" href="/static/css/index.css" />
     <link rel="icon" href="/static/img/fav.ico" type="image/x-icon" />
-    <style>
-      /* Search container styles */
-      .search-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 300px; /* Increased width */
-      }
-      .search-container input {
-        width: 100%;
-        padding: 10px 40px 10px 15px; /* Added padding for the search icon */
-        font-size: 16px; /* Increased font size */
-        border: 1px solid #070707;
-        border-radius: 4px;
-        color: white;
-      }
-      .search-icon {
-        position: absolute;
-        right: 10px;
-        color: #666;
-        pointer-events: none;
-      }
-      /* Suggestions styles */
-      .suggestions {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(15, 14, 14, 0.904);
-        border: 1px solid #070707;
-        border-top: none;
-        max-height: 300px;
-        overflow-y: auto;
-        z-index: 1000;
-        display: none;
-        width: 300px; /* Match the width of the search container */
-      }
-      .suggestion-button {
-        display: block;
-        width: 100%;
-        text-align: left;
-        padding: 12px 15px; /* Increased padding */
-        border: none;
-        background: none;
-        cursor: pointer;
-        color: white;
-        font-size: 14px; /* Increased font size */
-      }
-    </style>
   </head>
   <body>
-    <div class="container">
-      <nav>
+    <header>
+      <nav class="header-container">
         <div class="title-container">
           <a href="/">Groupie Tracker</a>
         </div>
@@ -90,7 +41,7 @@
           </div>
         </div>
       </nav>
-    </div>
+    </header>
     <main class="main container">
       <div class="grid" id="artist-grid">
         {{ if . }} {{ range . }}
