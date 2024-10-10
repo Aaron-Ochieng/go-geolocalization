@@ -1,72 +1,109 @@
+/* Global Styles */
 body {
-    background-color: #1e293b;
-    margin: 0;
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1a202c;
+  color: #ffffff;
 }
-
 .container {
-    padding: 2rem 1rem;
-    margin: 0 auto;
-    max-width: 1280px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.content {
-    margin: 0 auto;
-    max-width: 640px;
-    text-align: center;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #0f1729;
+}
+.title-container a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+.title-container a:hover {
+  color: #3498db;
+}
+/* Search container styles */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 300px;
 }
 
+.search-container input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  font-size: 16px;
+  border: 2px solid #3498db;
+  border-radius: 25px;
+  background-color: #2c3e50;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  color: #3498db;
+  pointer-events: none;
+}
+
+/* Error Page Styles */
+.error-content {
+  text-align: center;
+  padding: 100px 0;
+}
 h1 {
-    margin-bottom: 1rem;
-    font-size: 4.5rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    color: white;
+  font-size: 8rem;
+  margin: 0;
+  color: #3498db;
 }
-
 .error-message {
-    margin-bottom: 1rem;
-    font-size: 1.875rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    color: white;
+  font-size: 2rem;
+  margin: 20px 0;
 }
-
 .description {
-    margin-bottom: 1rem;
-    font-size: 1.125rem;
-    font-weight: 300;
-    color: #e2e8f0;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
-
 .home-button {
-    display: inline-flex;
-    color: white;
-    background-color: #2563eb;
-    font-weight: 500;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    padding: 0.625rem 1.25rem;
-    text-decoration: none;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
 }
-
 .home-button:hover {
-    background-color: #1d4ed8;
+  background-color: #2980b9;
 }
 
-@media (min-width: 768px) {
-    .error-message {
-        font-size: 2.25rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        padding: 4rem 1.5rem;
-    }
-    h1 {
-        font-size: 8rem;
-    }
+/* Responsive Styles */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+  .search-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+  h1 {
+    font-size: 6rem;
+  }
+  .error-message {
+    font-size: 1.5rem;
+  }
 }
