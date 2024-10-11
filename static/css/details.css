@@ -133,3 +133,12 @@ h2 {
 .home-button:hover {
     background-color: #2980b9;
 }
+
+@keyframes rotateImage {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
