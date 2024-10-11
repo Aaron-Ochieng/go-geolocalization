@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -64,10 +65,12 @@ body {
   margin-right: 2rem;
 }
 .artist-image {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    animation: rotateImage 10s linear infinite;
 }
 .artist-name {
   font-size: 2rem;
