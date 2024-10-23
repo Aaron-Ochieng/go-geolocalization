@@ -90,7 +90,7 @@
     var map = L.map('map').setView([0, 0], 2); // Default center at Paris
 
     // Load the OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
@@ -107,7 +107,7 @@
 
     // Function to place a marker using a place name
     function placeMarker(placeName) {
-      return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}`)
+      return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}&accept-language=en`)
         .then(response => response.json())
         .then(data => {
           if (data.length > 0) {
@@ -123,7 +123,7 @@
 
             // Add a marker with the custom icon
             L.marker([lat, lon], { icon: customIcon }).addTo(map)
-              .bindPopup(`${placeName}!`); // Popup text
+              .bindPopup(`${placeName}`); // Popup text
           } else {
             console.error("No results found for: " + placeName);
           }
