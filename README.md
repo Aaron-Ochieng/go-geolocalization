@@ -1,4 +1,4 @@
-# Groupie-Tracker-Search-Bar
+# Groupie-Tracker-Geolocalization
 
 Groupie Tracker Search Bar is a web application designed to interact with a given API to manipulate and display data about bands and artists. The project involves creating a user-friendly website that visualizes this information through various data visualizations such as blocks, cards, tables, lists, pages, and graphics and also allows search while while giving suggestions.
 
