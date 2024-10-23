@@ -11,6 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/static/css/details.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    .custom-icon {
+        font-size: 24px;
+        color: red;
+    }
+</style>
 </head>
 
 <body>
@@ -96,6 +103,39 @@
 
     // Display the extracted locations
     console.log(locations);
+
+
+    // Function to place a marker using a place name
+    function placeMarker(placeName) {
+      return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(placeName)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
+
+            // Create a custom icon using FontAwesome
+            var customIcon = L.divIcon({
+              className: 'custom-icon',
+              html: '<i class="fas fa-map-marker-alt"></i>', // FontAwesome icon
+              iconSize: [24, 24] // Size of the icon
+            });
+
+            // Add a marker with the custom icon
+            L.marker([lat, lon], { icon: customIcon }).addTo(map)
+              .bindPopup(`This is ${placeName}!`); // Popup text
+          } else {
+            console.error("No results found for: " + placeName);
+          }
+        })
+        .catch(error => console.error("Error fetching data:", error));
+    }
+
+    // Place markers for all the places
+    Promise.all(locations.map(location => placeMarker(location)))
+      .then(() => {
+
+      });
 
   </script>
 </body>
