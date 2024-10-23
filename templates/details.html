@@ -84,12 +84,19 @@
 
     // Load the OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 5,
+      maxZoom: 19,
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
+    const locationElements = document.querySelectorAll('.location');
+    const locations = [];
+    locationElements.forEach(element => {
+      locations.push(element.textContent.trim());
+    });
 
-    
+    // Display the extracted locations
+    console.log(locations);
+
   </script>
 </body>
 
