@@ -59,7 +59,7 @@ To run the project, follow these steps:
 1. Clone the repository.
    
    ```bash
-   git clone git clone https://learn.zone01kisumu.ke/git/aaochieng/groupie-tracker-geolocalization   
+   git clone https://learn.zone01kisumu.ke/git/aaochieng/groupie-tracker-geolocalization   
 
    ```
 
