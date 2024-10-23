@@ -123,7 +123,7 @@
 
             // Add a marker with the custom icon
             L.marker([lat, lon], { icon: customIcon }).addTo(map)
-              .bindPopup(`This is ${placeName}!`); // Popup text
+              .bindPopup(`${placeName}!`); // Popup text
           } else {
             console.error("No results found for: " + placeName);
           }
