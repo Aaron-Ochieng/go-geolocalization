@@ -11,13 +11,6 @@ The provided API consists of four main parts:
 3. **Dates**: Provides the last and/or upcoming concert dates.
 4. **Relation**: Links the artists, dates, and locations.
 
-## Features
-
-- Data Visualization: Displaying concert locations using markers on a map.
-- Geocoding: Converting addresses into geographic coordinates to place markers for concert locations.
-- Error Handling: Implementing robust error handling for website interactions.
-- Client-Server Communication: Request-response model to fetch artist and concert data.
-
 ## Implementation Overview
 
 The HTML implementation includes:
@@ -26,17 +19,29 @@ The HTML implementation includes:
 - Tour Dates and Locations: Lists the upcoming tour dates and corresponding locations for the artist.
 - Map Integration: Utilizes the Leaflet library to display a map and place markers for concert locations.
 
+## Key Features of the Implementation
+
+1. Map Initialization:
+    A Leaflet map is initialized with a default view.
+    OpenStreetMap tile layers are used for the map background.
+
+2. Location Extraction:
+    The script extracts concert location names from the HTML and stores them in an array.
+
+3. Geocoding with OpenStreetMap:
+    A function (placeMarker) is defined to fetch geographic coordinates using the Nominatim API by providing location names.
+    Markers are created with custom icons (FontAwesome) and added to the map.
+    Popups display the location name when markers are clicked.
+
+4. Error Handling:
+    The implementation includes error handling for cases where location data cannot be found or fetched.
+
 ## Project Requirements
 
 Ensure that you have `go` installed on your machine before running the project.
 
 Also ensure that you have `git` installed on your machine 
 
-## Features
-
-- **Data Visualization**: Displaying band information using various formats such as blocks, cards, tables, lists, pages, and graphics.
-- **Client-Server Communication**: Implement a feature that triggers an action on the client side, which communicates with the server to receive information (request-response model).
-- **Event Creation and Display**: Create and visualize events/actions that respond to client actions, time, or other factors.
 
 ## Learning Objectives
 
