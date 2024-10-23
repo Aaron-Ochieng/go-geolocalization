@@ -18,16 +18,13 @@ The provided API consists of four main parts:
 - Error Handling: Implementing robust error handling for website interactions.
 - Client-Server Communication: Request-response model to fetch artist and concert data.
 
-## Search Implementation
+## Implementation Overview
 
-The search input handled here is case-insensitive.
-The search bar has typing suggestions as you write.
-The program handles search in these caases:
-- Artist/band name 
-- Band Members
-- Locations
-- First Album Date
-- Creation Date 
+The HTML implementation includes:
+
+- Artist Details Section: Displays the artist's image, name, first album, and band members.
+- Tour Dates and Locations: Lists the upcoming tour dates and corresponding locations for the artist.
+- Map Integration: Utilizes the Leaflet library to display a map and place markers for concert locations.
 
 ## Project Requirements
 
