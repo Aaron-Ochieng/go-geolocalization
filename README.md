@@ -11,6 +11,13 @@ The provided API consists of four main parts:
 3. **Dates**: Provides the last and/or upcoming concert dates.
 4. **Relation**: Links the artists, dates, and locations.
 
+## Features
+
+- Data Visualization: Displaying concert locations using markers on a map.
+- Geocoding: Converting addresses into geographic coordinates to place markers for concert locations.
+- Error Handling: Implementing robust error handling for website interactions.
+- Client-Server Communication: Request-response model to fetch artist and concert data.
+
 ## Search Implementation
 
 The search input handled here is case-insensitive.
