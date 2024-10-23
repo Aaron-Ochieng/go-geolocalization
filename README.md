@@ -59,13 +59,13 @@ To run the project, follow these steps:
 1. Clone the repository.
    
    ```bash
-   git clone https://learn.zone01kisumu.ke/git/bshisia/groupie-tracker-search-bar
+   git clone https://learn.zone01kisumu.ke/git/bshisia/groupie-tracker-geolocalization
    ```
 
 2. Navigate to the project directory.
    
    ```bash
-   cd groupie-tracker-search-bar
+   cd groupie-tracker-geolocalization
    ```
 
 3. Run the server using the command:
