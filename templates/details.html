@@ -2,89 +2,95 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Artist Details</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/css/details.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artist Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/static/css/details.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 
 <body>
-    <header>
-        <nav class="header-container">
-            <div class="title-container">
-                <a href="/">Groupie Tracker</a>
-            </div>
-            <div class="search-container">
-                <input type="text" placeholder="Search..." disabled />
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-            </div>
-        </nav>
-    </header>
+  <header>
+    <nav class="header-container">
+      <div class="title-container">
+        <a href="/">Groupie Tracker</a>
+      </div>
+      <div class="search-container">
+        <input type="text" placeholder="Search..." disabled />
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+    </nav>
+  </header>
 
-    <div class="container">
-        <div class="artist-info">
-            <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}'s image" class="artist-image" />
-            <h1 class="artist-name">{{ .Artist.Name }}</h1>
-        </div>
+  <div class="container">
+    <div class="artist-info">
+      <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}'s image" class="artist-image" />
+      <h1 class="artist-name">{{ .Artist.Name }}</h1>
+    </div>
 
-        <div class="details">
-            <div class="section">
-                <h2>First Album</h2>
-                <p>{{.Artist.FirstAlbum}}</p>
-            </div>
+    <div class="details">
+      <div class="section">
+        <h2>First Album</h2>
+        <p>{{.Artist.FirstAlbum}}</p>
+      </div>
 
-            {{if .Artist.Members}}
-            <div class="section">
-                <h2>Band Members</h2>
-                <ul class="member-list">
-                    {{ range .Artist.Members }}
-                    <li>{{.}}</li>
-                    {{ end }}
-                </ul>
-            </div>
-            {{end}} {{ if .Relations.DatesLocations }}
-            <div class="section">
-                <h2>Tour Dates and Locations</h2>
-                <div class="tour-dates">
-                    {{ range $location, $dates := .Relations.DatesLocations
-                    }}
-                    <div class="tour-date">
-                        <h3>
-                            {{$location}}
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6" style="height: 20px">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                            </svg>
-                        </h3>
-                        {{ range $dates }}
-                        <p>{{.}}</p>
-                        {{ end }}
-                    </div>
-                    {{end}}
-                </div>
-            </div>
-            {{ else }}
-            <p>No tour information available at the moment.</p>
+      {{if .Artist.Members}}
+      <div class="section">
+        <h2>Band Members</h2>
+        <ul class="member-list">
+          {{ range .Artist.Members }}
+          <li>{{.}}</li>
+          {{ end }}
+        </ul>
+      </div>
+      {{end}} {{ if .Relations.DatesLocations }}
+      <div class="section">
+        <h2>Tour Dates and Locations</h2>
+        <div class="tour-dates">
+          {{ range $location, $dates := .Relations.DatesLocations
+          }}
+          <div class="tour-date">
+            <h3 class="location">
+              {{$location}}
+            </h3>
+            {{ range $dates }}
+            <p>{{.}}</p>
             {{ end }}
+          </div>
+          {{end}}
         </div>
+      </div>
+      {{ else }}
+      <p>No tour information available at the moment.</p>
+      {{ end }}
     </div>
+  </div>
 
-    <div style="text-align: center">
-        <a href="/" class="home-button">
-            <i class="fas fa-home"></i> Home
-        </a>
-    </div>
+  <div id="map" style="height: 500px; margin-left: 1.5rem; margin-right: 1.5rem;"></div>
+
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([0, 0], 2); // Default center at Paris
+
+    // Load the OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 5,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+
+    
+  </script>
 </body>
 
 </html>
