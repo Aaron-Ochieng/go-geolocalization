@@ -87,31 +87,6 @@ If you would like to contribute to this project, please fork the repository and 
 
 This project is licensed under the MIT License.
 
-<table>
-<tr>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://learn.zone01kisumu.ke/git/aaochieng>
-            <img src=https://learn.zone01kisumu.ke/git/avatars/8a1b24358854eb12998a07c269542193?size=870 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Aaron/>
-            <br />
-            <sub style="font-size:14px"><b>Aoron Ochieng</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://learn.zone01kisumu.ke/git/moonyango>
-            <img src=https://learn.zone01kisumu.ke/git/avatars/8f9cf111e69139c3033e3b9f679e91ce?size=870 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Emmanuel/>
-            <br />
-            <sub style="font-size:14px"><b>Moses Onyango</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://learn.zone01kisumu.ke/git/bshisia>
-            <img src=https://learn.zone01kisumu.ke/git/avatars/e6b283b461701c3a0bde65d94393f768?size=870 width="100;"  style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden;padding-top:10px" alt=Abraham/>
-            <br />
-            <sub style="font-size:14px"><b>Brian Shisia</b></sub>
-        </a>
-    </td>
-</tr>
-</table>
 
 ---
 
